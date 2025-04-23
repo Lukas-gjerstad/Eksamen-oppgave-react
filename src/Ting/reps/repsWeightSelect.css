@@ -1,0 +1,30 @@
+.RepsWeightSelect{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: lightblue;
+    padding-bottom: 3%;
+}
+.SelectRepsDiv{
+    display: flex;
+    flex-direction: column;
+}
+
+.selectWeightDiv{
+    display: flex;
+    flex-direction: column;
+    padding-left: 4%;
+}
+
+.checkbox{
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
