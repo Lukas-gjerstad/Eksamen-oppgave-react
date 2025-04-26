@@ -2,7 +2,7 @@ import { useEffect, useState} from 'react';
 import "./dataTable.css"
 
 export default function DataTable(props) {
-    let workoutData = props.workoutData
+    let workoutEntries = props.workoutEntries
     let exercises = props.exercises
     let session = props.session
 
@@ -17,7 +17,7 @@ export default function DataTable(props) {
                 </thead>
             <tbody>
                 {/* d er verdien og i er indexen i arrayen (hvor den ligger i arrayen) */}
-            {workoutData.map((d, i) => {
+            {workoutEntries.map((d, i) => {
                 // e er verdien. Finner index som har verdien fra den workout logen vi valgte
                 const matchedExercise = exercises.find(e => e.exerciseID === d.exerciseID)
                 const matchedSession = session.find(e => e.sessionID === d.sessionID)
@@ -35,7 +35,6 @@ export default function DataTable(props) {
                     <td>X {d.reps}</td>
                 </tr>
                 )
-                
             })}
             </tbody>
             </table>

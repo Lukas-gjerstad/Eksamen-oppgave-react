@@ -8,7 +8,6 @@ import React from "react";
 
 import LineChartComponent from "./lineChart.js"
 
-
 export default function DropdownExercise(props) {
   let exercises = props.exercises
   let selectedExercise = props.selectedExercise
@@ -38,7 +37,6 @@ export default function DropdownExercise(props) {
         Select Excerisse
       </Button>
       <Menu
-
       id="exerciseMenu"
       anchorEl={anchorEl}
       open={open}
@@ -51,14 +49,19 @@ export default function DropdownExercise(props) {
         {
           exercises.map((exercise, index) => {
             return(
-              <MenuItem 
-              key = {index} 
-              onClick={() => {
-              setSelectedExercise(exercise)
-              handleClose()
-            }}>
-              {exercise.name}
-            </MenuItem>
+              <div>
+                <MenuItem 
+                  sx={{color: "lightblue", background: "#414141"}}
+                  key = {index} 
+                  onClick={() => {
+                  setSelectedExercise(exercise)
+                  handleClose()
+                }}>
+
+                {/* exercise.name er det som blir vist i liste */}
+                {exercise.name}
+              </MenuItem>
+            </div>
             )
           })
         }
