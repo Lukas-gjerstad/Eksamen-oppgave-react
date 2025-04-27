@@ -1,30 +1,57 @@
+
+input[type="checkbox"] {
+    transform: translateY(0.075em);
+    
+    /* border */
+    color: #292929;
+    border-radius: 0.40em;
+
+    /* får tingen til å forsvinne */
+    -webkit-appearance: none;
+    appearance: none;
+    
+    /* ting inni checkbox (no touching) */
+    display: grid;
+    place-content: center;
+    gap: 0.5em;
+    width: 1.15em;
+    height: 1.15em;
+    border: 1.2em solid currentColor;
+
+}
+
+input[type="checkbox"]::before {
+  /* kan skrive ting inni content */
+  content: "";
+  width: 1.5em;
+  height: 1.5em;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 2em 2em lightblue;
+}
+
+input[type="checkbox"]:checked::before {
+    transform: scale(1);
+}
+
 .RepsWeightSelect{
     display: flex;
-    justify-content: center;
-    align-items: center;
-    color: lightblue;
-    padding-bottom: 3%;
+    padding-top: 9%;
 }
+
 .SelectRepsDiv{
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .selectWeightDiv{
     display: flex;
     flex-direction: column;
-    padding-left: 4%;
+    align-items: center;
+    padding-left: 20%;
 }
 
-.checkbox{
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-size: 22px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+label {
+    color: lightblue;
 }

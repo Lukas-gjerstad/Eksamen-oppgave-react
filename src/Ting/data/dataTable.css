@@ -1,19 +1,20 @@
 table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-  }
-  
-  td, th {
-    border: 1px solid #dddddd;
-    background: black;
-    text-align: left;
-    padding: 8px;
-    color: lightblue;
-  }
-  tr {
-    background: #ffffff;
-  }
-  tr:nth-child(even) {
-    background-color: #dddddd;
-  }
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+}
+
+td, th {
+  background: black;
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+  color: lightblue;
+}
+
+
+tr {
+  background: #ffffff;
+}
+tr:nth-child(even) {
+  background-color: #dddddd;
+}

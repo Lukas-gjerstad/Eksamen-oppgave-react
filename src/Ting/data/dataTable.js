@@ -7,7 +7,7 @@ export default function DataTable(props) {
     let session = props.session
 
     return (
-        <div style={{padding: "50px", }}>
+        <div style={{paddingLeft: "20%", paddingTop: "10%" }}>
             <table>
                 <thead>
                     <th>Session</th>

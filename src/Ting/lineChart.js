@@ -47,7 +47,7 @@ export default function LineChartComponent(props) {
         
     return(
         <div className={"LineChartContainer"}>
-            <Stack direction="row" sx={{ width: '50%', height: "500px"}}>
+            <Stack direction="row" sx={{ width: '70%', height: "420px"}}>
                 <Box sx={{ 
                     flexGrow: 1,
                     background: "white",
@@ -64,7 +64,6 @@ export default function LineChartComponent(props) {
                     grid={{ vertical: true, horizontal: true }}
                     axisHighlight={{
                         x: 'band', 
-                        y: 'line', 
                     }} 
                     />
                 </Box>

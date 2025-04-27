@@ -5,6 +5,26 @@
   
 }
 
+.SelectContainer {
+  padding-left: 2%;
+}
+
 body{
   background-color: rgb(0, 0, 0);
+}
+
+.DropdownSelectContainer {
+  display: flex;
+}
+
+.DatatableLinechartContainer {
+  display: flex;
+}
+
+.DataTableContainer {
+  width: 10%;
+}
+
+.LineChartContainer {
+  width: 100%;
 }

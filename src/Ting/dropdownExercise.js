@@ -27,7 +27,7 @@ export default function DropdownExercise(props) {
   return(
     <div className="ExerciseButton">
       <Button
-      sx={{color: "lightblue", background: "#414141"}}
+      sx={{color: "lightblue", background: "#292929"}}
       id="exerciseButton"
       aria-controls={open ? "basic-menu" : undefined}
       aria-haspopup="true"

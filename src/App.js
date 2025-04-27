@@ -37,36 +37,46 @@ function App() {
   }, [selectedExercise])
   return(
     <div>
-      <DropdownExercise 
-      workoutEntries={workoutEntries} 
-      exercises={exercises} 
-      session={session} 
-      selectedExercise={selectedExercise} 
-      setSelectedExercise={setSelectedExercise}
-      />
-      <DataTable 
-      workoutEntries={workoutEntries} 
-      exercises={exercises} 
-      session={session}
-      />
-      <RepsWeightSelect 
-      selectedReps={selectedReps} 
-      setSelectedReps={setSelectedReps} 
-      selectedWeight={selectedWeight} 
-      setSelectedWeight={setSelectedWeight} 
-      handleClickReps={handleClickReps} 
-      handleClickWeight={handleClickWeight}
-      />
-      <LineChartComponent 
-      workoutEntries={workoutEntries} 
-      exercises={exercises} 
-      session={session}
-      selectedReps={selectedReps}
-      selectedWeight={selectedWeight}
-      selectedExercise={selectedExercise}
-      onSelectExercise={(exercise) => setSelectedExercise(exercise)}
+      <div className='DropdownSelectContainer'>
+        <DropdownExercise 
+          workoutEntries={workoutEntries} 
+          exercises={exercises} 
+          session={session} 
+          selectedExercise={selectedExercise} 
+          setSelectedExercise={setSelectedExercise}
+        />
+        <div className='SelectContainer'>
+          <RepsWeightSelect 
+            selectedReps={selectedReps} 
+            setSelectedReps={setSelectedReps} 
+            selectedWeight={selectedWeight} 
+            setSelectedWeight={setSelectedWeight} 
+            handleClickReps={handleClickReps} 
+            handleClickWeight={handleClickWeight}
+          />
+        </div>
+      </div>
+      <div className='DatatableLinechartContainer'>
+        <div className="DataTableContainer">
+          <DataTable 
+            workoutEntries={workoutEntries} 
+            exercises={exercises} 
+            session={session}
+          />
+        </div>
 
-      /> 
+        <div className="LineChartContainer">
+          <LineChartComponent 
+            workoutEntries={workoutEntries} 
+            exercises={exercises} 
+            session={session}
+            selectedReps={selectedReps}
+            selectedWeight={selectedWeight}
+            selectedExercise={selectedExercise}
+            onSelectExercise={(exercise) => setSelectedExercise(exercise)}
+          /> 
+        </div>
+      </div>
     </div>
   )
         

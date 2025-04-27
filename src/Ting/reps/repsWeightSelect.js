@@ -18,7 +18,7 @@ export default function RepsWeightSelect(props) {
     return(
         <div className="RepsWeightSelect">
             <div className="SelectRepsDiv">
-                <label htmlFor="selectReps">Show Reps</label>
+                <label htmlFor="selectReps">Reps</label>
                 <input 
                 type="checkbox"
                 id="selectReps"
@@ -28,7 +28,7 @@ export default function RepsWeightSelect(props) {
            </div>
            
            <div className="selectWeightDiv">
-            <label htmlFor="selectWeight">Show Weight</label>
+            <label htmlFor="selectWeight">Weight</label>
             <input 
                 type="checkbox"
                 id="selectWeight"
