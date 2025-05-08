@@ -6,7 +6,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import React from "react";
 
-import LineChartComponent from "./lineChart.js"
+import LineChartComponent from "../linechart/lineChart.js"
 
 export default function DropdownExercise(props) {
   let exercises = props.exercises

@@ -1,12 +1,16 @@
 import './App.css'
 import { useState, useEffect } from 'react';
+import { Outlet } from "react-router-dom";
 
-import LineChartComponent from "./Ting/lineChart.js"
+
+import LineChartComponent from "./Ting/linechart/lineChart.js"
 import DataTable from "./Ting/data/dataTable.js";
-import DropdownExercise from './Ting/dropdownExercise.js';
+import DropdownExercise from './Ting/dropdown/dropdownExercise.js';
 import RepsWeightSelect from './Ting/reps/repsWeightSelect.js';
+import InsertData from "./Ting/insertdata/insert/insertData.js"
+import InsertDataButton from "./Ting/insertdata/insert/insertDataButton.js"
 
-function App() {
+function App({ TogglePage, setTogglePage }) {
     const [workoutEntries, setworkoutEntries] = useState([])
     const [exercises, setExercises] = useState([])
     const [session, setSession] = useState([])
@@ -17,17 +21,26 @@ function App() {
     useEffect(() => {
         fetch("http://localhost:8081/")
         .then(res => res.json())
-        .then(workoutEntries => {
+        .then(data => {
             // sets workoutEntries to have the value of workoutEntries
-            setworkoutEntries(workoutEntries.workoutEntries)
-            setExercises(workoutEntries.exercise)
-            setSession(workoutEntries.session)
+            setworkoutEntries(data.workoutEntries)
+            setExercises(data.exercise)
+            setSession(data.session)
+
+            // setter selectedExercise til benchpress automatisk
+            // er her fordi hvis ikke blir den satt til benchpress automatisk hver re render  
+            const benchpress = data.exercise.find(exercise => exercise.name === "Benchpress")
+              if (benchpress) {
+                setSelectedExercise(benchpress)
+              }
         })
         .catch(err => console.log(err))
     }, [])
+
     const handleClickReps = (() => {
       setSelectedReps(!selectedReps)
     })
+
     const handleClickWeight = (() => {
         setSelectedWeight(!selectedWeight)
     })
@@ -35,6 +48,9 @@ function App() {
     useEffect(() => {
       console.log("App test også PLSS: ", selectedExercise)
   }, [selectedExercise])
+
+  
+
   return(
     <div>
       <div className='DropdownSelectContainer'>
@@ -55,14 +71,23 @@ function App() {
             handleClickWeight={handleClickWeight}
           />
         </div>
+        <div className='btnContainer'>
+          <InsertDataButton 
+          TogglePage={TogglePage} 
+          setTogglePage={setTogglePage}
+          workoutEntries={workoutEntries} 
+          exercises={exercises} 
+          session={session} 
+          />
+        </div>
       </div>
       <div className='DatatableLinechartContainer'>
         <div className="DataTableContainer">
-          <DataTable 
+          {/* <DataTable 
             workoutEntries={workoutEntries} 
             exercises={exercises} 
             session={session}
-          />
+          /> */}
         </div>
 
         <div className="LineChartContainer">

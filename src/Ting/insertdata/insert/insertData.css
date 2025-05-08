@@ -1,0 +1,55 @@
+.big {
+    padding-top: 5%;
+}
+
+.pageInsertDiv {
+    display: flex;
+}
+
+.textInput {
+    padding-left: 5%;
+}
+
+.addExerciseDiv {
+    padding-left: 15%;
+}
+
+li{
+    color: lightblue;
+}
+
+input {
+    color: black;
+}
+
+.entryList {
+    list-style-type: none;
+}
+
+.addEntryContainer {
+    padding-bottom: 15%;
+}
+
+li {
+    padding-bottom: 8%;
+}
+
+.datePicker {
+    color: black;
+}
+
+.submitAddExerciseDiv {
+    display: flex;
+}
+
+.submitDiv{
+    padding-left: 2%;
+}
+
+.insertDiv {
+    padding-left: 15%;
+}
+
+.tableDiv {
+    padding-left: 5%;
+}

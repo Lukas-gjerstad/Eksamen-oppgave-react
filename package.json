@@ -8,17 +8,21 @@
     "@mui/material": "^7.0.1",
     "@mui/styled-engine-sc": "^7.0.1",
     "@mui/x-charts": "^7.28.0",
+    "@mui/x-date-pickers": "^8.1.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
     "@testing-library/user-event": "^13.5.0",
     "cors": "^2.8.5",
+    "curl": "^0.1.4",
+    "dayjs": "^1.11.13",
     "express": "^5.1.0",
     "mysql": "^2.18.1",
     "nodemon": "^3.1.9",
     "randn": "^1.0.0",
     "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
     "react-bootstrap": "^2.10.9",
+    "react-datepicker": "^8.3.0",
     "react-dom": "^17.0.0 || ^18.0.0 || ^19.0.0",
     "react-scripts": "5.0.1",
     "styled-components": "^6.1.17",
@@ -51,5 +55,8 @@
   "peerDependencies": {
     "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
     "react-dom": "^17.0.0 || ^18.0.0 || ^19.0.0"
+  },
+  "devDependencies": {
+    "react-router-dom": "^7.5.2"
   }
 }

@@ -1,10 +1,6 @@
 import { useState, } from "react";
 import "./repsWeightSelect.css"
 
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-
 const label = { inputProps: {"aria-label": "Checkbox demo"}}
 
 export default function RepsWeightSelect(props) {
