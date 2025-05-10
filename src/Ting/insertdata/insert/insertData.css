@@ -1,5 +1,7 @@
 .big {
     padding-top: 5%;
+    display: flex;
+    justify-content: center;
 }
 
 .pageInsertDiv {
@@ -8,10 +10,6 @@
 
 .textInput {
     padding-left: 5%;
-}
-
-.addExerciseDiv {
-    padding-left: 15%;
 }
 
 li{
@@ -24,10 +22,6 @@ input {
 
 .entryList {
     list-style-type: none;
-}
-
-.addEntryContainer {
-    padding-bottom: 15%;
 }
 
 li {
@@ -46,10 +40,11 @@ li {
     padding-left: 2%;
 }
 
-.insertDiv {
-    padding-left: 15%;
-}
-
 .tableDiv {
     padding-left: 5%;
+}
+
+.tourDiv {
+    padding-left: 5%;
+    padding-top: 5%;
 }

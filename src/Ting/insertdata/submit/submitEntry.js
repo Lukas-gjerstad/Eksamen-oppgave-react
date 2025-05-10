@@ -44,7 +44,7 @@ export default function SubmitEntry(props) {
 
     return(
         <div>
-            <button className="submitBtn" onClick={insertSession}>Submit</button>
+            <button className="submitBtn" id="submitEntry" onClick={insertSession}>Submit</button>
         </div>
     )
 }

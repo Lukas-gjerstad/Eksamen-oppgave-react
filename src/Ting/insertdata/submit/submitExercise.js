@@ -47,7 +47,7 @@ export default function SubmitExercise(props) {
                     />
                 </label>
             </div>
-            <button className="newExercise" onClick={handleClick}>
+            <button className="newExercise" onClick={handleClick} id="inputExercise">
                 Add
             </button>
         </div>

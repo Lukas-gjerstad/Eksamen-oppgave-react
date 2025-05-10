@@ -1,4 +1,4 @@
-import "./dropdownExercise.css"
+import "./selectEntry.css"
 import {useState, setState} from "react"
 
 import Button from '@mui/material/Button';
@@ -6,8 +6,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import React from "react";
 
-
-export default function DropdownExercise({exercises, selectedExercise, setSelectedExercise}) {
+export default function SelectEntry({selectedEntry, setSelectedEntry, session, setSession}) {
 
   // anchorEl er elementet som popupen er anchored til
   const [anchorEl, setAnchorEl] = React.useState(null)
@@ -20,6 +19,7 @@ export default function DropdownExercise({exercises, selectedExercise, setSelect
   const handleClose = () => {
     setAnchorEl(null)
   }
+  
   return(
     <div className="ExerciseButton">
       <Button
@@ -29,13 +29,13 @@ export default function DropdownExercise({exercises, selectedExercise, setSelect
         textTransform: "none",
       }}
       
-      id="selectExercise"
+      id="exerciseButton"
       aria-controls={open ? "basic-menu" : undefined}
       aria-haspopup="true"
       aria-expanded={open ? "true" : undefined}
       onClick={handleClick}
       >
-        Select Exercise
+        Select Session
       </Button>
       <Menu
       id="exerciseMenu"
@@ -44,11 +44,12 @@ export default function DropdownExercise({exercises, selectedExercise, setSelect
       onClose={handleClose}
       // setter label til elementer med id exerciseButton
       MenuListProps={{
-        "aria-labelledby": "exerciseButton"
+        "aria-labelledby": "sessionButton"
       }}
       >
         {
-          exercises.map((exercise, index) => {
+          session.map((se, index) => {
+            const fixedDate = new Date(se.date).toLocaleDateString("en-GB")
             return(
               <div>
                 <MenuItem 
@@ -58,12 +59,11 @@ export default function DropdownExercise({exercises, selectedExercise, setSelect
                   }}
                   key = {index} 
                   onClick={() => {
-                  setSelectedExercise(exercise)
+                  setSelectedEntry(se.sessionID)
                   handleClose()
                 }}>
 
-                {/* exercise.name er det som blir vist i liste */}
-                {exercise.name}
+                {fixedDate}
               </MenuItem>
             </div>
             )

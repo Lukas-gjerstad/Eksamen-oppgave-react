@@ -29,7 +29,7 @@ export default function AddExercise(props) {
 
     return(
         <div>
-            <button className="addExerciseBtn" onClick={handleClick}>
+            <button className="addExerciseBtn" onClick={handleClick} id="addExercise">
                 Add Exercise
             </button>
         </div>

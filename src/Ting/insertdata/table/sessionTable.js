@@ -6,7 +6,7 @@ export default function SessionTable(props) {
 
     return(
         <div>
-            <table>
+            <table id="entryTable">
                 <thead>
                     <th>Exercise</th>
                     <th>Weight</th>

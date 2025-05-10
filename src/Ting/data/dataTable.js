@@ -1,10 +1,7 @@
 import { useEffect, useState} from 'react';
 import "./dataTable.css"
 
-export default function DataTable(props) {
-    let workoutEntries = props.workoutEntries
-    let exercises = props.exercises
-    let session = props.session
+export default function DataTable({workoutEntries, setWorkoutEntries, exercises, session, selectedEntry, setSelectedEntry}) {
 
     return (
         <div style={{paddingLeft: "20%", paddingTop: "10%" }}>
@@ -17,25 +14,22 @@ export default function DataTable(props) {
                 </thead>
             <tbody>
                 {/* d er verdien og i er indexen i arrayen (hvor den ligger i arrayen) */}
-            {workoutEntries.map((d, i) => {
-                // e er verdien. Finner index som har verdien fra den workout logen vi valgte
-                const matchedExercise = exercises.find(e => e.exerciseID === d.exerciseID)
-                const matchedSession = session.find(e => e.sessionID === d.sessionID)
+                {workoutEntries
+                .filter((entry) => entry.sessionID === selectedEntry) // only entries from selected session
+                .map((entry, i) => {
+                    const sessionObj = session.find((s) => s.sessionID === entry.sessionID)
+                    const exerciseObj = exercises.find((e) => e.exerciseID === entry.exerciseID)
+                    const dateFormatted = sessionObj ? new Date(sessionObj.date).toLocaleDateString("en-GB") : "Unknown date"
 
-                // kutter av iso bullshit etter date
-                // en-GB gjør dd-mm-yy
-                const dateCut = new Date(matchedSession.date).toLocaleDateString('en-GB')
-
-                return (
-                <tr key={i}>
-                    {/* hvis matchedExercise ikke er null/undefined viser den dateCut */}
-                    <td>{matchedSession ? dateCut : 'You fucked up dumbass '}</td>
-                    <td>{matchedExercise ? matchedExercise.name : 'You fucked up dumbass '}</td>
-                    <td>{d.weight} KG</td>
-                    <td>X {d.reps}</td>
-                </tr>
-                )
-            })}
+                    return (
+                    <tr key={i}>
+                        <td>{dateFormatted}</td>
+                        <td>{exerciseObj ? exerciseObj.name : "Unknown Exercise"}</td>
+                        <td>{entry.weight} KG</td>
+                        <td>X {entry.reps}</td>
+                    </tr>
+                    )
+                })}
             </tbody>
             </table>
         </div>

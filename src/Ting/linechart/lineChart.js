@@ -3,25 +3,14 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import { LineChart } from '@mui/x-charts/LineChart';
 
-export default function LineChartComponent(props) {
-
-    let workoutEntries = props.workoutEntries
-    let session = props.session ||  []
-    let selectedExercise = props.selectedExercise
-    let selectedWeight = props.selectedWeight
-    let selectedReps = props.selectedReps
-
-    let lineChartData1 = [110, 82, 64, 28, 4]
-
-
+export default function LineChartComponent({workoutEntries, session, selectedExercise, selectedWeight, selectedReps}) {
+    
     const lineChartData = session.map((s, index) => {
         return {
             date: new Date(s.date).toLocaleDateString("en-GB"),
-            // double pipe || er logisk operator for or 
-            // setter value til linechartdata hvis den ikke er null/undefined
-            value: lineChartData1[index] || 0
         }
     })
+
     let chartSeries = []
 
     const entriesFiltered = selectedExercise && workoutEntries.filter(entry => entry.exerciseID === selectedExercise.exerciseID)

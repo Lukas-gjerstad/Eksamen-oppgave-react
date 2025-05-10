@@ -1,6 +1,5 @@
 import './App.css'
 import { useState, useEffect } from 'react';
-import { Outlet } from "react-router-dom";
 
 
 import LineChartComponent from "./Ting/linechart/lineChart.js"
@@ -9,6 +8,8 @@ import DropdownExercise from './Ting/dropdown/dropdownExercise.js';
 import RepsWeightSelect from './Ting/reps/repsWeightSelect.js';
 import InsertData from "./Ting/insertdata/insert/insertData.js"
 import InsertDataButton from "./Ting/insertdata/insert/insertDataButton.js"
+import SelectEntry from "./Ting/data/selectEntry.js"
+import Tour from "./Ting/tour/tour.js"
 
 function App({ TogglePage, setTogglePage }) {
     const [workoutEntries, setworkoutEntries] = useState([])
@@ -17,6 +18,7 @@ function App({ TogglePage, setTogglePage }) {
     const [selectedExercise, setSelectedExercise] = useState(null)
     const [selectedReps, setSelectedReps] = useState([true])
     const [selectedWeight, setSelectedWeight] = useState([true])
+    const [selectedEntry, setSelectedEntry] = useState(null)
 
     useEffect(() => {
         fetch("http://localhost:8081/")
@@ -81,13 +83,21 @@ function App({ TogglePage, setTogglePage }) {
           />
         </div>
       </div>
+      <div className='selectEntryDiv'>
+        <SelectEntry 
+          selectedEntry={selectedEntry} setSelectedEntry={setSelectedEntry}
+          session={session} setSession={setSession}
+          exercises={exercises} 
+        />
+      </div>
       <div className='DatatableLinechartContainer'>
         <div className="DataTableContainer">
-          {/* <DataTable 
-            workoutEntries={workoutEntries} 
+          <DataTable 
+            workoutEntries={workoutEntries} setworkoutEntries={setworkoutEntries}
+            selectedEntry={selectedEntry} setSelectedEntry={setSelectedEntry}
             exercises={exercises} 
             session={session}
-          /> */}
+          />
         </div>
 
         <div className="LineChartContainer">
@@ -102,6 +112,7 @@ function App({ TogglePage, setTogglePage }) {
           /> 
         </div>
       </div>
+      <Tour />
     </div>
   )
         

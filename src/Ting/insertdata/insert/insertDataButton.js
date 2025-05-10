@@ -1,20 +1,23 @@
 import "./insertDataButton.css"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import { useState } from "react";
 
-
 export default function InsertDataButton({ TogglePage, setTogglePage }) {
-    const navigate = useNavigate();
+    const navigate = useNavigate()
+    const location = useLocation()
 
     const HandleClick = () => {
-        setTogglePage(!TogglePage)
-        TogglePage ? navigate("/insert") : navigate("/")
+        if (location.pathname === "/") {
+            navigate("/insert")
+        } else {
+            navigate("/")
+        }
     }
 
     return(
         <div className="btnContainer">
-            <button onClick={HandleClick}>
-                {TogglePage ? "Insert" : "Home"}
+            <button onClick={HandleClick} id="insertPageButton">
+                {location.pathname === "/" ? "Insert" : "Home"}
             </button>
         </div>
     )
