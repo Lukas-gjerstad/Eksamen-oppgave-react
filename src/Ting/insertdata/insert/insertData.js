@@ -9,7 +9,6 @@ import SessionTable from "../table/sessionTable"
 import SubmitEntry from "../submit/submitEntry"
 import SubmitExercise from "../submit/submitExercise";
 import AddExercise from "../userInput/addExercise";
-import Tour from "../../tour/tour"
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -24,6 +23,7 @@ export default function InsertData({ TogglePage, setTogglePage, }) {
 
     const [insertDate, setInsertDate] = useState(new Date())
     const [insertNewExercise, setInsertNewExercise] = useState("")
+    const [insertSets, setInsertSets] = useState()
     const [insertWeight, setInsertWeight] = useState()
     const [insertReps, setInsertReps] = useState()
 
@@ -75,6 +75,20 @@ export default function InsertData({ TogglePage, setTogglePage, }) {
                                 </div>
                             </li>
                             <li>
+                                Sets
+                                <div className="setsInputDiv">
+                                    <label>
+                                        <input 
+                                        name="setsInput"
+                                        className="setsInput"
+                                        value={insertSets}
+                                        onChange={e => setInsertSets(e.target.value)}
+                                        />
+                                    </label>
+                                    
+                                </div>
+                            </li>
+                            <li>
                                 Weight
                                 <div className="weightInputDiv" id="pickWeight">
                                     <label>
@@ -107,6 +121,7 @@ export default function InsertData({ TogglePage, setTogglePage, }) {
                                         exerciseArr={exerciseArr} setExerciseArr={setExerciseArr} 
                                         exerciseData={exerciseData} setExerciseData={setExerciseData}
                                         pickedExercise={pickedExercise}
+                                        insertSets={insertSets} setInsertSets={setInsertSets}
                                         insertWeight={insertWeight} setInsertWeight={setInsertWeight}
                                         insertReps={insertReps} setInsertReps={setInsertReps}
                                     />
@@ -117,14 +132,12 @@ export default function InsertData({ TogglePage, setTogglePage, }) {
 
                     <div className="submitDiv"> 
                         <SubmitEntry id="submitEntry"
-                        pickedExercise={pickedExercise} 
-                        setPickedExercise={setPickedExercise}
-                        insertDate={insertDate}  
-                        setInsertDate={setInsertDate}
-                        insertNewExercise={insertNewExercise} 
-                        setInsertNewExercise={setInsertNewExercise}
-                        insertWeight={insertWeight} insertReps={insertReps} 
-                        setInsertWeight={setInsertWeight}
+                        pickedExercise={pickedExercise} setPickedExercise={setPickedExercise}
+                        insertDate={insertDate}  setInsertDate={setInsertDate}
+                        insertNewExercise={insertNewExercise} setInsertNewExercise={setInsertNewExercise}
+                        insertSets={insertSets}
+                        insertWeight={insertWeight}  setInsertWeight={setInsertWeight}
+                        insertReps={insertReps}
                         entryArr={entryArr} setEntryArr={setEntryArr}
                         sessionArr={sessionArr} setSessionArr={setSessionArr} 
                         exerciseArr={exerciseArr} setExerciseArr={setExerciseArr}
@@ -148,9 +161,6 @@ export default function InsertData({ TogglePage, setTogglePage, }) {
                     />
                 </div>
             </div>
-            </div>
-            <div className="tourDiv">
-                <Tour />
             </div>
             </div>
         )

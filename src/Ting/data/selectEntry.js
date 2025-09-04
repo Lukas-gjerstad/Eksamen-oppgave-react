@@ -6,7 +6,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import React from "react";
 
-export default function SelectEntry({selectedEntry, setSelectedEntry, session, setSession}) {
+export default function SelectEntry({selectedEntry, setSelectedEntry}) {
 
   // anchorEl er elementet som popupen er anchored til
   const [anchorEl, setAnchorEl] = React.useState(null)
@@ -19,6 +19,7 @@ export default function SelectEntry({selectedEntry, setSelectedEntry, session, s
   const handleClose = () => {
     setAnchorEl(null)
   }
+  const dummy = []
   
   return(
     <div className="ExerciseButton">
@@ -48,7 +49,7 @@ export default function SelectEntry({selectedEntry, setSelectedEntry, session, s
       }}
       >
         {
-          session.map((se, index) => {
+          dummy.map((se, index) => {
             const fixedDate = new Date(se.date).toLocaleDateString("en-GB")
             return(
               <div>
@@ -60,7 +61,7 @@ export default function SelectEntry({selectedEntry, setSelectedEntry, session, s
                   key = {index} 
                   onClick={() => {
                   setSelectedEntry(se.sessionID)
-                  handleClose()
+                   handleClose()
                 }}>
 
                 {fixedDate}

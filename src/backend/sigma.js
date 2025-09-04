@@ -1,11 +1,9 @@
 const { MongoClient } = require("mongodb");
-const cors = require("cors")
 const express = require("express");
-require('dotenv').config({ path: './.env' });
 const app = express();
 app.use(express.json());
-app.use(cors({origin: "http://localhost:3000"}))
-const uri = process.env.MONGODB_URI
+
+const uri = "mongodb+srv://lukaswigdel:sNpSD-1LtTRGIpA8AA@cluster0.nlglp5d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 const client = new MongoClient(uri)
 
 let db
@@ -21,6 +19,7 @@ async function startServer() {
 
       return res.json({
         workoutEntries,
+        session: session,
         exercise: exercise,
       })
 
@@ -57,7 +56,7 @@ async function startServer() {
 
       const result = await sessionCollection.insertOne(insertEntry);
 
-      res.status(200).json({ message: "Session and workout entries INSERTED" });
+      res.status(200).json({ message: "Session and workout entries INSERTED", sessionID: result.insertedId });
     } catch (err) {
       console.error("Failed to insert into MongoDB", err);
       res.status(500).json({ error: "Insert failed" });
@@ -68,4 +67,3 @@ async function startServer() {
     console.log("Hacking successfull");
   });
 }
-startServer().catch(console.error)

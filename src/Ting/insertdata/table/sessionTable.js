@@ -9,6 +9,7 @@ export default function SessionTable(props) {
             <table id="entryTable">
                 <thead>
                     <th>Exercise</th>
+                    <th>Sets</th>
                     <th>Weight</th>
                     <th>Reps</th>
                 </thead>
@@ -18,6 +19,7 @@ export default function SessionTable(props) {
                             return (
                             <tr key={index}>
                                 <td>{item.exercise}</td>
+                                <td>{item.sets}</td>
                                 <td>{item.weight}</td>
                                 <td>{item.reps}</td>
                             </tr>)

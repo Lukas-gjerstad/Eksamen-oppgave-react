@@ -3,38 +3,44 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import { LineChart } from '@mui/x-charts/LineChart';
 
-export default function LineChartComponent({workoutEntries, session, selectedExercise, selectedWeight, selectedReps}) {
-    
-    const lineChartData = session.map((s, index) => {
-        return {
-            date: new Date(s.date).toLocaleDateString("en-GB"),
-        }
-    })
-
+export default function LineChartComponent({workoutEntries, selectedExercise, selectedWeight, selectedReps, selectSets}) {
     let chartSeries = []
 
-    const entriesFiltered = selectedExercise && workoutEntries.filter(entry => entry.exerciseID === selectedExercise.exerciseID)
+    const workoutEntryMap = selectedExercise && workoutEntries.flatMap((workoutEntry) => {
+         return workoutEntry.exercise
+            .filter(ex => ex.name === selectedExercise.name)
+            .map(ex =>  {
+                const set = ex.sets?.[selectSets]
+                return set
+                    ? {
+                        weight: set.weight,
+                        reps: set.reps,
+                        sessionID: workoutEntry._id
+                    }
+                    : null
+            })
+            .filter(Boolean)
+    })
 
-            if (selectedReps && selectedExercise?.name) {
-                chartSeries.push({
-                    id: `reps-${selectedExercise?.name}`,
-                    data: entriesFiltered.map(entry => entry.reps),
-                    label: `Reps ${selectedExercise?.name}`,
-                    color: "blue",
-                    curve: "linear",
-                })
-            }
-            if (selectedWeight && selectedExercise?.name) {
-                chartSeries.push({
-                    id: `weight-${selectedExercise?.name}`,
-                    data: entriesFiltered.map(entries => entries.weight),
-                    label: `Weight ${selectedExercise?.name}`,
-                    color: "red",
-                    curve: "linear",
-                })
-            }
-        
-    return(
+       if (selectedReps && selectedExercise?.name) {
+        chartSeries.push({
+            id: `reps-${selectedExercise?.name}`,
+            data: workoutEntryMap.map(entry => entry.reps),
+            label: `Reps ${selectedExercise?.name}`,
+            color: "blue",
+            curve: "linear",
+        })
+    }
+    if (selectedWeight && selectedExercise?.name) {
+        chartSeries.push({
+            id: `weight-${selectedExercise?.name}`,
+            data: workoutEntryMap.map(entry => entry.weight),
+            label: `Weight ${selectedExercise?.name}`,
+            color: "red",
+            curve: "linear",
+        })
+    }
+        return(
         <div className={"LineChartContainer"}>
             <Stack direction="row" sx={{ width: '70%', height: "420px"}}>
                 <Box sx={{ 
@@ -45,7 +51,7 @@ export default function LineChartComponent({workoutEntries, session, selectedExe
                 <LineChart 
                     xAxis={[{
                         scaleType: 'band',
-                        data: selectedExercise ? entriesFiltered.map(d => d.sessionID) : "",
+                        data: selectedExercise ? workoutEntryMap.map(d => d.sessionID) : [],
                     }]}
 
                     series={chartSeries}

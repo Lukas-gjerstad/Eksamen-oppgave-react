@@ -3,9 +3,10 @@ export default function AddExercise(props) {
     const setAddExerciseToggle = props.setAddExerciseToggle
 
     const pickedExercise = props.pickedExercise
+    const insertSets = props.insertSets
+    const setInsertSets = props.setInsertSets
     const insertWeight = props.insertWeight
     const insertReps = props.insertReps
-
     const setInsertReps =  props.setInsertReps
     const setInsertWeight =  props.setInsertWeight
 
@@ -19,6 +20,7 @@ export default function AddExercise(props) {
             ...prev, 
             {
                 exercise: pickedExercise.exerciseID,
+                sets: insertSets,
                 weight: insertWeight,
                 reps: insertReps,
             }

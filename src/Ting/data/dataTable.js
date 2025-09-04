@@ -1,8 +1,9 @@
 import { useEffect, useState} from 'react';
 import "./dataTable.css"
 
-export default function DataTable({workoutEntries, setWorkoutEntries, exercises, session, selectedEntry, setSelectedEntry}) {
+export default function DataTable({workoutEntries, setWorkoutEntries, exercises, selectedEntry, setSelectedEntry}) {
 
+    const dumb = []
     return (
         <div style={{paddingLeft: "20%", paddingTop: "10%" }}>
             <table>
@@ -17,7 +18,7 @@ export default function DataTable({workoutEntries, setWorkoutEntries, exercises,
                 {workoutEntries
                 .filter((entry) => entry.sessionID === selectedEntry) // only entries from selected session
                 .map((entry, i) => {
-                    const sessionObj = session.find((s) => s.sessionID === entry.sessionID)
+                    const sessionObj = dumb.find((s) => s.sessionID === entry.sessionID)
                     const exerciseObj = exercises.find((e) => e.exerciseID === entry.exerciseID)
                     const dateFormatted = sessionObj ? new Date(sessionObj.date).toLocaleDateString("en-GB") : "Unknown date"
 
