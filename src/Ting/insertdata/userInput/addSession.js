@@ -19,21 +19,24 @@ export default function AddExercise(props) {
         setExerciseArr(prev => [
             ...prev, 
             {
-                exercise: pickedExercise.exerciseID,
-                sets: insertSets,
-                weight: insertWeight,
-                reps: insertReps,
+                name: pickedExercise.name,
+                sets: [
+                        {
+                            weight: insertWeight,
+                            reps: insertReps,   
+                        }
+                    ]
             }
-        ])
-        setInsertWeight("")
-        setInsertReps("")
-    } 
+            ])
+            setInsertWeight("")
+            setInsertReps("")
+        } 
 
-    return(
-        <div>
-            <button className="addExerciseBtn" onClick={handleClick} id="addExercise">
-                Add Exercise
-            </button>
-        </div>
-    )
-}
+        return(
+            <div>
+                <button className="addExerciseBtn" onClick={pickedExercise && handleClick} id="addExercise">
+                    Add Exercise
+                </button>
+            </div>
+        )
+    }

@@ -9,21 +9,20 @@ export default function SessionTable(props) {
             <table id="entryTable">
                 <thead>
                     <th>Exercise</th>
-                    <th>Sets</th>
                     <th>Weight</th>
                     <th>Reps</th>
                 </thead>
                 <tbody>
                     {
-                        exerciseArr && exerciseArr.map((item, index) => {
-                            return (
-                            <tr key={index}>
-                                <td>{item.exercise}</td>
-                                <td>{item.sets}</td>
-                                <td>{item.weight}</td>
-                                <td>{item.reps}</td>
-                            </tr>)
-                        })  
+                        exerciseArr && exerciseArr.map((exercise, index) => {
+                            return exercise.sets.map((set, setIndex) => (
+                                <tr key={index}>
+                                    <td>{exercise.name}</td>
+                                    <td>{set.weight}</td>
+                                    <td>{set.reps}</td>
+                                </tr>
+                            ))
+                       })   
                     }
                 </tbody>
             </table>

@@ -6,7 +6,7 @@ import MenuItem from '@mui/material/MenuItem';
 import React from "react";
 
 export default function PickExercise(props) {
-  const Exercise = props.Exercise
+  const exercise = props.exercise
   const pickedExercise = props.pickedExercise
   const insertWeight = props.insertWeight
   const insertReps = props.insertReps
@@ -54,7 +54,7 @@ export default function PickExercise(props) {
       }}
       >
         {
-          Exercise.map((exercise, index) => {
+          exercise.map((exercise, index) => {
             return(
               <div>
                 <MenuItem 

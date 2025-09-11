@@ -33,7 +33,7 @@ export default function SetSelect({selectSets, setSelectSets}) {
                 aria-expanded={open ? "true" : undefined}
                 onClick={handleClick}
             >
-            Select Exercise
+                {"Set " + selectSets }
         </Button>
         <Menu
             id="setMenu"

@@ -11,36 +11,33 @@ export default function SubmitEntry(props) {
     const setExerciseArr = props.setExerciseArr
 
     const insertSession = async () => {
-            setEntryArr(prev => [...prev, exerciseArr]);
-        const fullEntryArr = exerciseArr;
-    
+        console.log("Submitting:", exerciseArr)
         try {
-            const response = await fetch("http://localhost:8081/insertEntry", {
+            const response = await fetch("http://localhost:8080/insertEntry", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({ 
                     date: insertDate,
-                    fullEntryArr: fullEntryArr,
-                }) 
+                    fullEntryArr: exerciseArr,
+                })
             });
-    
-            const data = await response.json(); // reads json response from server 
-    
+        
+            const data = await response.json() // reads json response from server 
+        
             if (!response.ok) {
                 // shows error message from server
-                throw new Error(data.error || "Failed to add session");
+                throw new Error(data.error || "Failed to add session")
             }
-    
-            console.log("Success:", data.message);
-            alert("Entry added successfully")
-            setEntryArr([])
+        
+            console.log("Success:", data.message)
+            alert("Ze entry was added a sucsessfollay")
             setExerciseArr([])
         } catch (error) {
-            console.error("Error:", error.message);
+            console.error("Error:", error.message)
         }
-    };
+    }
 
     return(
         <div>

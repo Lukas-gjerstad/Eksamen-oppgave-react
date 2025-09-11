@@ -38,7 +38,7 @@ export default function LineChartComponent({workoutEntries, selectedExercise, se
             label: `Weight ${selectedExercise?.name}`,
             color: "red",
             curve: "linear",
-        })
+        }) 
     }
         return(
         <div className={"LineChartContainer"}>

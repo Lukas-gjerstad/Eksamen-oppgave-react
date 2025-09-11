@@ -5,13 +5,23 @@
 }
 
 .bigContainer{
-  border: 1px white solid;
-  border-radius: 5px;
    padding: 0;
 }
 
 .SelectContainer {
   padding-left: 1%;
+  display: flex;
+}
+
+.setSelectContainer {
+    padding-top: 20%;
+    padding-left: 5%;
+}
+.btnContainer {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 999;
 }
 
 body{
@@ -21,6 +31,7 @@ body{
 
 .DropdownSelectContainer {
   display: flex;
+  width: 100%;
 }
 
 .DatatableLinechartContainer {

@@ -1,10 +1,13 @@
 const { MongoClient } = require("mongodb");
 const cors = require("cors")
 const express = require("express");
-require('dotenv').config({ path: './.env' });
+
 const app = express();
+
+require('dotenv').config({ path: './.env' });
 app.use(express.json());
-app.use(cors({origin: "http://localhost:3000"}))
+app.use(cors())
+
 const uri = process.env.MONGODB_URI
 const client = new MongoClient(uri)
 
@@ -43,19 +46,15 @@ async function startServer() {
       console.log("Connected to MongoDB");
 
       const db = client.db("trening");
-      const sessionCollection = db.collection("session");
+      const sessionCollection = db.collection("workoutentry");
+
+      const dateObj = new Date(date)
+      const formatDate = `${dateObj.getDate()}-${String(dateObj.getMonth() + 1).padStart(2, '0')}-${String(dateObj.getFullYear()).slice(-2)}`
 
       const insertEntry = {
-        date: new Date(date),
-        entries: fullEntryArr.map(entry => ({
-          exerciseID: entry.exercise,
-          sets: entry.sets,
-          weight: entry.weight,
-          reps: entry.reps,
-        }))
-      };
-
-      const result = await sessionCollection.insertOne(insertEntry);
+        _id: formatDate,
+        exercise: fullEntryArr
+      }
 
       res.status(200).json({ message: "Session and workout entries INSERTED" });
     } catch (err) {

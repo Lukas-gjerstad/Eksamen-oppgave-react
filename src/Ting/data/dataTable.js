@@ -3,7 +3,8 @@ import "./dataTable.css"
 
 export default function DataTable({workoutEntries, setWorkoutEntries, exercises, selectedEntry, setSelectedEntry}) {
 
-    const dumb = []
+    const session = workoutEntries.find(entry => entry._id === selectedEntry)
+
     return (
         <div style={{paddingLeft: "20%", paddingTop: "10%" }}>
             <table>
@@ -14,23 +15,24 @@ export default function DataTable({workoutEntries, setWorkoutEntries, exercises,
                     <th>Reps</th>
                 </thead>
             <tbody>
-                {/* d er verdien og i er indexen i arrayen (hvor den ligger i arrayen) */}
-                {workoutEntries
-                .filter((entry) => entry.sessionID === selectedEntry) // only entries from selected session
-                .map((entry, i) => {
-                    const sessionObj = dumb.find((s) => s.sessionID === entry.sessionID)
-                    const exerciseObj = exercises.find((e) => e.exerciseID === entry.exerciseID)
-                    const dateFormatted = sessionObj ? new Date(sessionObj.date).toLocaleDateString("en-GB") : "Unknown date"
-
-                    return (
-                    <tr key={i}>
-                        <td>{dateFormatted}</td>
-                        <td>{exerciseObj ? exerciseObj.name : "Unknown Exercise"}</td>
-                        <td>{entry.weight} KG</td>
-                        <td>X {entry.reps}</td>
-                    </tr>
-                    )
-                })}
+               {
+                        session ? (
+                            session.exercise.map((exercise, i) =>
+                                exercise.sets.map((set, j) => (
+                                    <tr key={`${i}-${j}`}>
+                                        <td>{session._id}</td>
+                                        <td>{exercise.name}</td>
+                                        <td>{set.weight} KG</td>
+                                        <td>X {set.reps}</td>
+                                    </tr>
+                                ))
+                            )
+                        ) : (
+                            <tr>
+                                <td colSpan="4">Select a session to view entries.</td>
+                            </tr>
+                        )
+                    }
             </tbody>
             </table>
         </div>

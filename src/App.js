@@ -9,7 +9,7 @@ import RepsWeightSelect from './Ting/chartSettings/repsWeightSelect.js';
 import InsertData from "./Ting/insertdata/insert/insertData.js"
 import SetSelect from './Ting/chartSettings/setSelect.js';
 import InsertDataButton from "./Ting/insertdata/insert/insertDataButton.js"
-import SelectEntry from "./Ting/data/selectEntry.js"
+import SelectEntry from "./Ting/data/selectSession.js"
 
 function App({ TogglePage, setTogglePage }) {
     const [workoutEntries, setworkoutEntries] = useState([])
@@ -63,9 +63,12 @@ function App({ TogglePage, setTogglePage }) {
             handleClickReps={handleClickReps} 
             handleClickWeight={handleClickWeight}
           />
-          <SetSelect
+          <div className='setSelectContainer'>
+            <SetSelect
             selectSets={selectSets} setSelectSets={setSelectSets}
-          />
+            />
+          </div>
+          
 
         </div>
         <div className='btnContainer'>
@@ -81,6 +84,7 @@ function App({ TogglePage, setTogglePage }) {
         <SelectEntry 
            selectedEntry={selectedEntry} setSelectedEntry={setSelectedEntry}
           exercises={exercises} 
+          workoutEntries={workoutEntries}
         />
       </div>
       <div className='DatatableLinechartContainer'>
@@ -91,7 +95,6 @@ function App({ TogglePage, setTogglePage }) {
             exercises={exercises} 
           />
         </div>
-
         <div className="LineChartContainer">
           <LineChartComponent 
             workoutEntries={workoutEntries} 

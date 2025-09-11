@@ -8,13 +8,13 @@ import PickExercise from "../userInput/pickExercise";
 import SessionTable from "../table/sessionTable"
 import SubmitEntry from "../submit/submitEntry"
 import SubmitExercise from "../submit/submitExercise";
-import AddExercise from "../userInput/addExercise";
+import AddExercise from "../userInput/addSession";
 
 import "react-datepicker/dist/react-datepicker.css";
 
 export default function InsertData({ TogglePage, setTogglePage, }) {
     const [Entries, setEntries] = useState([])
-    const [Exercise, setExercises] = useState([])
+    const [exercise, setExercises] = useState([])
     const [pickedExercise, setPickedExercise] = useState(null)
     const [exerciseArr, setExerciseArr] = useState([])
     const [entryArr, setEntryArr] = useState([])
@@ -23,7 +23,6 @@ export default function InsertData({ TogglePage, setTogglePage, }) {
 
     const [insertDate, setInsertDate] = useState(new Date())
     const [insertNewExercise, setInsertNewExercise] = useState("")
-    const [insertSets, setInsertSets] = useState()
     const [insertWeight, setInsertWeight] = useState()
     const [insertReps, setInsertReps] = useState()
 
@@ -31,16 +30,17 @@ export default function InsertData({ TogglePage, setTogglePage, }) {
 
     console.log(exerciseArr)
 
-
-    useEffect(() => {
-        fetch("http://localhost:8081/")
-        .then(res => res.json())
-        .then(workoutEntries => {
-            setEntries(workoutEntries.workoutEntries)
-            setExercises(workoutEntries.exercise)
-        })
-        .catch(err => console.log(err))
-    }, [])
+        useEffect(() => {
+            fetch("http://localhost:8080/")
+            .then(res => res.json())
+            .then(data => {
+                setEntries(data.workoutEntries)
+                setExercises(data.exercise)
+                console.log(data)
+           })
+            .catch(err => console.log(err))
+        }, [])
+    
     return(
         <div>
         <div className="big"> 
@@ -61,7 +61,7 @@ export default function InsertData({ TogglePage, setTogglePage, }) {
                             <li>
                                 <div className="pickExerciseDiv" id="pickExercise">
                                     <PickExercise 
-                                    Exercise={Exercise} 
+                                    exercise={exercise} 
                                     pickedExercise={pickedExercise} 
                                     setPickedExercise={setPickedExercise} 
                                     insertWeight={insertWeight}
@@ -72,20 +72,6 @@ export default function InsertData({ TogglePage, setTogglePage, }) {
                                     setExerciseData={setExerciseData}
 
                                     />
-                                </div>
-                            </li>
-                            <li>
-                                Sets
-                                <div className="setsInputDiv">
-                                    <label>
-                                        <input 
-                                        name="setsInput"
-                                        className="setsInput"
-                                        value={insertSets}
-                                        onChange={e => setInsertSets(e.target.value)}
-                                        />
-                                    </label>
-                                    
                                 </div>
                             </li>
                             <li>
@@ -121,7 +107,6 @@ export default function InsertData({ TogglePage, setTogglePage, }) {
                                         exerciseArr={exerciseArr} setExerciseArr={setExerciseArr} 
                                         exerciseData={exerciseData} setExerciseData={setExerciseData}
                                         pickedExercise={pickedExercise}
-                                        insertSets={insertSets} setInsertSets={setInsertSets}
                                         insertWeight={insertWeight} setInsertWeight={setInsertWeight}
                                         insertReps={insertReps} setInsertReps={setInsertReps}
                                     />
@@ -135,7 +120,6 @@ export default function InsertData({ TogglePage, setTogglePage, }) {
                         pickedExercise={pickedExercise} setPickedExercise={setPickedExercise}
                         insertDate={insertDate}  setInsertDate={setInsertDate}
                         insertNewExercise={insertNewExercise} setInsertNewExercise={setInsertNewExercise}
-                        insertSets={insertSets}
                         insertWeight={insertWeight}  setInsertWeight={setInsertWeight}
                         insertReps={insertReps}
                         entryArr={entryArr} setEntryArr={setEntryArr}
