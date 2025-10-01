@@ -1,16 +1,17 @@
 import "./insertData.css"
 import InsertDataButton from "./insertDataButton"
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef} from "react";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import PickExercise from "../userInput/pickExercise";
 import SessionTable from "../table/sessionTable"
 import SubmitEntry from "../submit/submitEntry"
 import SubmitExercise from "../submit/submitExercise";
-import AddExercise from "../userInput/addSession";
+import AddSession from "../userInput/addSession";
+import PickExercise from "../userInput/pickExercise";
 
 import "react-datepicker/dist/react-datepicker.css";
+import { heIL } from "@mui/x-date-pickers/locales";
 
 export default function InsertData({ TogglePage, setTogglePage, }) {
     const [Entries, setEntries] = useState([])
@@ -23,129 +24,167 @@ export default function InsertData({ TogglePage, setTogglePage, }) {
 
     const [insertDate, setInsertDate] = useState(new Date())
     const [insertNewExercise, setInsertNewExercise] = useState("")
+    const [insertTitle, setInsertTitle] = useState("")
     const [insertWeight, setInsertWeight] = useState()
     const [insertReps, setInsertReps] = useState()
+    const [insertNote, setInsertNote] = useState()
+    const [description, setDescription] = useState()
+
+    const  addExRef = useRef(null)
 
     const [sessionArr, setSessionArr] = useState([])
-
-    console.log(exerciseArr)
-
-        useEffect(() => {
+        useEffect(() => { 
             fetch("http://localhost:8080/")
             .then(res => res.json())
-            .then(data => {
+            .then(data => { 
                 setEntries(data.workoutEntries)
                 setExercises(data.exercise)
                 console.log(data)
            })
             .catch(err => console.log(err))
         }, [])
-    
-    return(
-        <div>
+
+        return(
         <div className="big"> 
-        <div className="massive">
-                <div className="pageInsertDiv">
-                    <div className="insertDiv">
-                        <InsertDataButton TogglePage={TogglePage} setTogglePage={setTogglePage}/>
-                    </div>
 
-                    <div className="textInput">
-                        <ul className="entryList" id="entryList">
-                            <li>
-                            Select Session Date 
-                                <div className="datePickerDiv" id="datePick">
-                                    <DatePicker className="datePicker" selected={insertDate} onChange={(date) => setInsertDate(date)} />
-                                </div>
-                            </li>
-                            <li>
-                                <div className="pickExerciseDiv" id="pickExercise">
-                                    <PickExercise 
-                                    exercise={exercise} 
-                                    pickedExercise={pickedExercise} 
-                                    setPickedExercise={setPickedExercise} 
-                                    insertWeight={insertWeight}
-                                    insertReps={insertReps}
-                                    addExerciseToggle={addExerciseToggle} 
-                                    setAddExerciseToggle={setAddExerciseToggle} 
-                                    exerciseData={exerciseData}
-                                    setExerciseData={setExerciseData}
+            <div className="insertDiv">
+                <InsertDataButton TogglePage={TogglePage} setTogglePage={setTogglePage}/>
+            </div>
 
-                                    />
-                                </div>
-                            </li>
-                            <li>
-                                Weight
-                                <div className="weightInputDiv" id="pickWeight">
-                                    <label>
-                                        <input 
-                                        name="weightInput" 
-                                        className="weightInput"
-                                        value={insertWeight}
-                                        onChange={e => setInsertWeight(e.target.value)}
-                                        />
+                <ul className="metadataList" id="insertLi">
+                    <li>
+                    Select Session Date 
+                        <div className="datePickerDiv" id="datePick">
+                            <DatePicker className="datePicker" selected={insertDate} onChange={(date) => setInsertDate(date)} />
+                        </div>
+                    </li>
+                    <li>
+                        Title
+                        <div className="titleInputDiv">
+                            <label>
+                                <input 
+                                name="titleInput" 
+                                className="titleInput"
+                                value={insertTitle}
+                                onChange={e => setInsertTitle(e.target.value)}
+                                />
                                     </label>
                                 </div>
                             </li>
                             <li>
-                                Reps
-                                <div className="repsInputDiv" id="pickReps">
+                                Description
+                                <div>
                                     <label>
                                         <input 
-                                        name="repsInput" 
-                                        className="repsInput"
-                                        value={insertReps}
-                                        onChange={e => setInsertReps(e.target.value)}
+                                        name="descriptionInput" 
+                                        className="descriptionInput"
+                                        value={description}
+                                        onChange={e => setDescription(e.target.value)}
                                         />
                                     </label>
-                                </div>
-                            </li>
-                            <li>
-                                <div >
-                                    <AddExercise
-                                        setAddExerciseToggle={setAddExerciseToggle}
-                                        exerciseArr={exerciseArr} setExerciseArr={setExerciseArr} 
-                                        exerciseData={exerciseData} setExerciseData={setExerciseData}
-                                        pickedExercise={pickedExercise}
-                                        insertWeight={insertWeight} setInsertWeight={setInsertWeight}
-                                        insertReps={insertReps} setInsertReps={setInsertReps}
-                                    />
                                 </div>
                             </li>
                         </ul>
-                    </div>
 
-                    <div className="submitDiv"> 
-                        <SubmitEntry id="submitEntry"
-                        pickedExercise={pickedExercise} setPickedExercise={setPickedExercise}
-                        insertDate={insertDate}  setInsertDate={setInsertDate}
-                        insertNewExercise={insertNewExercise} setInsertNewExercise={setInsertNewExercise}
-                        insertWeight={insertWeight}  setInsertWeight={setInsertWeight}
-                        insertReps={insertReps}
-                        entryArr={entryArr} setEntryArr={setEntryArr}
-                        sessionArr={sessionArr} setSessionArr={setSessionArr} 
-                        exerciseArr={exerciseArr} setExerciseArr={setExerciseArr}
-                        
-                        />
-                    </div>
+                    <div className="mainContent">
+                        <div className="textInput">
+                            <ul id="insertLi">
+                                <li>
+                                    Pick Exercise
+                                    <div className="pickExerciseDiv" id="pickExercise">
+                                        <PickExercise 
+                                        exercise={exercise} 
+                                        pickedExercise={pickedExercise} 
+                                        setPickedExercise={setPickedExercise} 
+                                        insertWeight={insertWeight}
+                                        insertReps={insertReps}
+                                        addExerciseToggle={addExerciseToggle} 
+                                        setAddExerciseToggle={setAddExerciseToggle} 
+                                        exerciseData={exerciseData}
+                                        setExerciseData={setExerciseData}
 
-                    <div className="tableDiv">
-                        <SessionTable 
-                        exerciseData = {exerciseData}
-                        setExerciseData = {setExerciseData}
-                        exerciseArr={exerciseArr}
-                        />
-                    </div>
+
+                                        />
+                                    </div>
+                                </li>
+                                <li>
+                                    Weight
+                                    <div className="weightInputDiv" id="pickWeight">
+                                        <label>
+                                            <input 
+                                            name="weightInput" 
+                                            className="weightInput"
+                                            value={insertWeight}
+                                            onChange={e => setInsertWeight(e.target.value)}
+                                            />
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    Reps
+                                    <div className="repsInputDiv" id="pickReps">
+                                        <label>
+                                            <input 
+                                            name="repsInput" 
+                                            className="repsInput"
+                                            value={insertReps}
+                                            onChange={e => setInsertReps(e.target.value)}
+                                            />
+                                        </label>
+                                    </div>
+                                </li>
+                                
+                                <li>
+                                    Note
+                                    <div className="noteInput">
+                                        <label>
+                                            <input                             
+                                            name="noteInput"
+                                            className="noteInput"
+                                            value={insertNote} onChange={e => setInsertNote(e.target.value)}
+                                            /> </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div >
+                                        <AddSession
+                                            setAddExerciseToggle={setAddExerciseToggle}
+                                            exerciseArr={exerciseArr} setExerciseArr={setExerciseArr} 
+                                            exerciseData={exerciseData} setExerciseData={setExerciseData}
+                                            pickedExercise={pickedExercise}
+                                            insertWeight={insertWeight} setInsertWeight={setInsertWeight}
+                                            insertReps={insertReps} setInsertReps={setInsertReps}
+                                            insertNote={insertNote} setInsertNote={setInsertNote}
+                                        />
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div className="submitDiv"> 
+                            <SubmitEntry id="submitEntry"
+                            insertDate={insertDate}  setInsertDate={setInsertDate}
+                            insertTitle={insertTitle}
+                            description={description}
+                    exerciseArr={exerciseArr} setExerciseArr={setExerciseArr}
+                    />
                 </div>
 
-                <div className="addExerciseDiv">
-                    <SubmitExercise 
+                <div className="tableDiv">
+                    <SessionTable 
+                    exerciseData = {exerciseData}
+                    setExerciseData = {setExerciseData}
+                    exerciseArr={exerciseArr}
+                    />
+                </div>
+                <div>
+                    <SubmitExercise
                         id="submitExercise"
                         insertNewExercise={insertNewExercise} setInsertNewExercise={setInsertNewExercise}
+                        ref={addExRef}
                     />
                 </div>
             </div>
-            </div>
-            </div>
-        )
+        </div>
+    )
 }

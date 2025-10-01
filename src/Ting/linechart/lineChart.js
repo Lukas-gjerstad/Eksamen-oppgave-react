@@ -5,22 +5,25 @@ import { LineChart } from '@mui/x-charts/LineChart';
 
 export default function LineChartComponent({workoutEntries, selectedExercise, selectedWeight, selectedReps, selectSets}) {
     let chartSeries = []
+    console.log(selectSets, "setttetoijweg")
 
     const workoutEntryMap = selectedExercise && workoutEntries.flatMap((workoutEntry) => {
          return workoutEntry.exercise
             .filter(ex => ex.name === selectedExercise.name)
             .map(ex =>  {
-                const set = ex.sets?.[selectSets]
+                const set = ex.sets?.[selectSets -1]
+                console.log("Matched ", ex, "Slected ", set) 
                 return set
                     ? {
-                        weight: set.weight,
-                        reps: set.reps,
+                        weight: Number(set.weight),
+                        reps: Number(set.reps),
                         sessionID: workoutEntry._id
                     }
                     : null
             })
             .filter(Boolean)
     })
+    console.log (workoutEntryMap, "say ")
 
        if (selectedReps && selectedExercise?.name) {
         chartSeries.push({
@@ -29,7 +32,7 @@ export default function LineChartComponent({workoutEntries, selectedExercise, se
             label: `Reps ${selectedExercise?.name}`,
             color: "blue",
             curve: "linear",
-        })
+        }) 
     }
     if (selectedWeight && selectedExercise?.name) {
         chartSeries.push({
@@ -39,7 +42,7 @@ export default function LineChartComponent({workoutEntries, selectedExercise, se
             color: "red",
             curve: "linear",
         }) 
-    }
+    } 
         return(
         <div className={"LineChartContainer"}>
             <Stack direction="row" sx={{ width: '70%', height: "420px"}}>

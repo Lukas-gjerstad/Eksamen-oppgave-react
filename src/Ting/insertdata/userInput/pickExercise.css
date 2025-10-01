@@ -1,0 +1,40 @@
+.dropdown {
+    position: relative;
+}
+
+.options {
+    display: none;
+    position: absolute;
+    top: 100%;
+    z-index: 1000;
+    background-color: #222;    
+    padding: 5px;
+    border: 1px solid white;
+    border-radius: 5px;
+    margin-top: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.options.open {
+    display: block;
+}
+
+.optionList {
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 4px;
+    margin-bottom: 2px;
+}
+
+.option {
+    background-color: rgb(77, 77, 77);
+    color: lightblue;
+    padding: 6px;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: background-color 0.2s ease;
+}
+
+.option:hover {
+    background-color: #888;
+}

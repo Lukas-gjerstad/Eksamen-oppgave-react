@@ -2,11 +2,8 @@ import "./submitEntry.css"
 
 export default function SubmitEntry(props) {
     const insertDate = props.insertDate
-    const insertWeight = props.insertWeight
-    const insertReps = props.insertReps
-    const pickedExercise = props.pickedExercise
-    const entryArr = props.entryArr
-    const setEntryArr = props.setEntryArr
+    const insertTitle = props.insertTitle
+    const description = props.description
     const exerciseArr = props.exerciseArr
     const setExerciseArr = props.setExerciseArr
 
@@ -20,6 +17,8 @@ export default function SubmitEntry(props) {
                 },
                 body: JSON.stringify({ 
                     date: insertDate,
+                    title: insertTitle,
+                    description: description,
                     fullEntryArr: exerciseArr,
                 })
             });
@@ -30,7 +29,7 @@ export default function SubmitEntry(props) {
                 // shows error message from server
                 throw new Error(data.error || "Failed to add session")
             }
-        
+    
             console.log("Success:", data.message)
             alert("Ze entry was added a sucsessfollay")
             setExerciseArr([])

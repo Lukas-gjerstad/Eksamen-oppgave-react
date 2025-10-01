@@ -1,77 +1,88 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import "./pickExercise.css"
 
-import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import React from "react";
+export default function PickExerciseT({exercise, pickedExercise, setPickedExercise, addExerciseToggle, setAddExerciseToggle}) {
+    const [query, setQuery] = useState("")
+    const [isOpen, setIsOpen] = useState(false)
 
-export default function PickExercise(props) {
-  const exercise = props.exercise
-  const pickedExercise = props.pickedExercise
-  const insertWeight = props.insertWeight
-  const insertReps = props.insertReps
-  const setPickedExercise = props.setPickedExercise
-  const exerciseArr = props.exerciseArr
-  const setExerciseArr = props.setExerciseArr
-  const addExerciseToggle = props.addExerciseToggle
-  const setAddExerciseToggle = props.setAddExerciseToggle
-  const exerciseData = props.exerciseData
-  const setExerciseData = props.setExerciseData
-  
-  const [anchorEl, setAnchorEl] = React.useState(null)
-  const open = Boolean(anchorEl)
+    const inputRef = useRef(null)
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget)
-  }
-  const handleClose = () => {
-    setAnchorEl(null)
-  }
 
-  return(
-    <div className="pickExerciseButton">
-      <Button
-      sx={{color: "lightblue", background: "#292929"}}
-      id="exerciseButton"
-      aria-controls={open ? "basic-menu" : undefined}
-      aria-haspopup="true"
-      aria-expanded={open ? "true" : undefined}
-      onClick={handleClick}
-      >
-      { addExerciseToggle
-        ? pickedExercise.name 
-        : "Select Exercise" 
-      }
-      </Button>
-      <Menu
-      id="exerciseMenu"
-      anchorEl={anchorEl}
-      open={open}
-      onClose={handleClose}
-      // setter label til elementer med id exerciseButton
-      MenuListProps={{
-        "aria-labelledby": "exerciseButton"
-      }}
-      >
-        {
-          exercise.map((exercise, index) => {
-            return(
-              <div>
-                <MenuItem 
-                  sx={{color: "lightblue", background: "#414141"}}
-                  key = {index} 
-                  onClick={() => {
-                    setPickedExercise(exercise)
-                    setAddExerciseToggle(true)
-                    handleClose()
-                }}>
-                {exercise.name}
-              </MenuItem>
+    useEffect(() => {
+        document.addEventListener("click", toggle)
+        return () => document.removeEventListener("click", toggle)
+    }, [])
+
+    console.log("testing exercise say gex", exercise.name)
+    
+    const selectOption = (option) => {
+        setQuery(() => "") 
+        //set "name" to key value of exercises 
+        setPickedExercise(option["name"])
+        setIsOpen((isOpen) => !isOpen)
+    }
+ 
+    function toggle(e) {
+        setIsOpen(e && e.target === inputRef.current)
+        // event handler returns value to e containing what element is clicked
+    }
+
+    const getDisplayValue = () => {
+        // choses order of what is displayed in input field
+        // goes from top to bottom
+        if (query) return query
+        if (pickedExercise) return pickedExercise
+
+        return ""
+    }
+
+    const filter = (exercise) => {
+        return exercise.filter(
+            //indexOf checks substring (query) is found in ex.name. if it is returns the index value (keeps the exercise)
+            //benchpress.indexOf(press) = 5 > -1 (returns value benchpress) 
+
+            (ex) => ex["name"].toLowerCase().indexOf(query.toLowerCase()) > -1
+        )
+    }
+
+    return (
+        <div className="dropdown">
+            <div className="control">
+                <div className="selected-value">
+                    <input
+                        //sets inputRef target to this input field so when input field clicks it runs toggle func
+                        ref={inputRef}
+                        type="text"
+                        value={getDisplayValue()}
+                        name="searchTerm"
+                        onChange={(e) => {
+                            setQuery(e.target.value)
+                            setPickedExercise(null)
+                        }}
+                        //redundant because toggle invoked by eventhandler 
+                        onClick={toggle}
+                    />
+                </div>
+            <div className={`arrow ${isOpen ? "open" : ""}`}></div>
             </div>
-            )
-          })
-        }
-      </Menu>
-    </div>
-  )
-}
+            
+            <div className={`options ${isOpen ? "open" : ""}`}>
+                {filter(exercise).map((option, index) => {
+                    return (
+                        <div className="optionList"> 
+                            <div
+                                onClick={() => selectOption(option)}
+                                className={`option ${
+                                    option["name"] === pickedExercise ? "selected" : ""
+                                }`}
+                                key={`${"id"}-${index}`}
+                            >
+                                {option["name"]}
+                            </div> 
+                        </div>
+                        )
+                    })}
+                </div>
+            </div>
+        )
+    }

@@ -6,7 +6,6 @@ import LineChartComponent from "./Ting/linechart/lineChart.js"
 import DataTable from "./Ting/data/dataTable.js";
 import DropdownExercise from './Ting/dropdown/dropdownExercise.js';
 import RepsWeightSelect from './Ting/chartSettings/repsWeightSelect.js';
-import InsertData from "./Ting/insertdata/insert/insertData.js"
 import SetSelect from './Ting/chartSettings/setSelect.js';
 import InsertDataButton from "./Ting/insertdata/insert/insertDataButton.js"
 import SelectEntry from "./Ting/data/selectSession.js"
@@ -17,7 +16,7 @@ function App({ TogglePage, setTogglePage }) {
     const [selectedExercise, setSelectedExercise] = useState(null)
     const [selectedReps, setSelectedReps] = useState([true])
     const [selectedWeight, setSelectedWeight] = useState([true])
-    const [selectSets, setSelectSets] = useState([1])
+    const [selectSets, setSelectSets] = useState(1)
     const [selectedEntry, setSelectedEntry] = useState(null)
 
     useEffect(() => {
@@ -26,7 +25,6 @@ function App({ TogglePage, setTogglePage }) {
         .then(data => {
             setworkoutEntries(data.workoutEntries)
             setExercises(data.exercise)
-            console.log(data)
 
             const benchpress = data.exercise.find(exercise => exercise.name === "benchpress")
               if (benchpress) {
@@ -35,7 +33,6 @@ function App({ TogglePage, setTogglePage }) {
         })
         .catch(err => console.log(err))
     }, [])
-
 
     const handleClickReps = (() => {
       setSelectedReps(!selectedReps)
