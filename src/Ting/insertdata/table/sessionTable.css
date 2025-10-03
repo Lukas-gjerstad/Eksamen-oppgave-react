@@ -1,0 +1,45 @@
+/* Wrapper to apply outer border and radius */
+.tableWrapper {
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  width: 100%;
+  margin: auto;
+  background-color: rgb(255, 255, 255); /* matches your table bg */
+  color: black;
+}
+
+.tableBodyWrapper {
+    max-height: 300px ;
+    overflow-y: auto;
+}
+
+/* Table without its own borders */
+#entryTable,
+#entryTableBodyOnly { 
+
+  border-collapse: collapse;
+  width: 100%;
+  background-color: white;
+}
+
+#entryTable th {
+    background-color: rgb(0, 0, 0);
+    color: lightblue;
+}
+
+#entryTable td {
+    background-color: white;
+    color: black;
+}
+/* Header & cells */
+#entryTable th,
+#entryTable td {
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+#entryTable tbody tr:nth-child(even) td {
+  background-color: #f3f3f3; 
+}

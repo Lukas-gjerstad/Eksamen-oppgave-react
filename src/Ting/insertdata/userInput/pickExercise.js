@@ -13,12 +13,10 @@ export default function PickExerciseT({exercise, pickedExercise, setPickedExerci
         return () => document.removeEventListener("click", toggle)
     }, [])
 
-    console.log("testing exercise say gex", exercise.name)
-    
     const selectOption = (option) => {
         setQuery(() => "") 
         //set "name" to key value of exercises 
-        setPickedExercise(option["name"])
+        setPickedExercise(option)
         setIsOpen((isOpen) => !isOpen)
     }
  
@@ -31,7 +29,7 @@ export default function PickExerciseT({exercise, pickedExercise, setPickedExerci
         // choses order of what is displayed in input field
         // goes from top to bottom
         if (query) return query
-        if (pickedExercise) return pickedExercise
+        if (pickedExercise) return pickedExercise.name
 
         return ""
     }
@@ -41,7 +39,7 @@ export default function PickExerciseT({exercise, pickedExercise, setPickedExerci
             //indexOf checks substring (query) is found in ex.name. if it is returns the index value (keeps the exercise)
             //benchpress.indexOf(press) = 5 > -1 (returns value benchpress) 
 
-            (ex) => ex["name"].toLowerCase().indexOf(query.toLowerCase()) > -1
+            (ex) => ex.name.toLowerCase().indexOf(query.toLowerCase()) > -1
         )
     }
 
@@ -57,7 +55,7 @@ export default function PickExerciseT({exercise, pickedExercise, setPickedExerci
                         name="searchTerm"
                         onChange={(e) => {
                             setQuery(e.target.value)
-                            setPickedExercise(null)
+                            // setPickedExercise(null)
                         }}
                         //redundant because toggle invoked by eventhandler 
                         onClick={toggle}
@@ -67,17 +65,16 @@ export default function PickExerciseT({exercise, pickedExercise, setPickedExerci
             </div>
             
             <div className={`options ${isOpen ? "open" : ""}`}>
-                {filter(exercise).map((option, index) => {
+                {filter(exercise).map((option) => {
                     return (
-                        <div className="optionList"> 
+                        <div className="optionList" key={option._id}> 
                             <div
                                 onClick={() => selectOption(option)}
                                 className={`option ${
-                                    option["name"] === pickedExercise ? "selected" : ""
+                                    option.name === pickedExercise?.name ? "selected" : "" 
                                 }`}
-                                key={`${"id"}-${index}`}
                             >
-                                {option["name"]}
+                            {option.name}
                             </div> 
                         </div>
                         )
